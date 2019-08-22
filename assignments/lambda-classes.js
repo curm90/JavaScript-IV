@@ -29,6 +29,11 @@ class Instructor extends Person {
   grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
+  markWork(student) {
+    let randomNum = (Math.floor(Math.random()*20)) * (Math.random() > 0.5 ? 1 : -1);
+    student.grade += randomNum;
+    return student.grade >= 100 ? student.grade = 100 : student.grade + 1;
+  }
 }
 
 const gabe = new Instructor({
@@ -46,6 +51,7 @@ class Student extends Person {
     this.previousBackground = data.previousBackground;
     this.className = data.className;
     this.favSubjects = data.favSubjects;
+    this.grade = Math.floor(Math.random() * 100);
   }
   listSubjects() {
     return this.favSubjects.forEach(item => console.log(item));
@@ -56,6 +62,13 @@ class Student extends Person {
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge ${subject}`);
   }
+  graduate() {
+    if (this.grade >= 70) {
+      return `${this.name} Graduated Lambda-School.`
+    } else {
+      return `${this.name} needs some extra lessons.`
+    }
+  }
 }
 
 const alex = new Student({
@@ -64,7 +77,7 @@ const alex = new Student({
   location: 'Canada',
   previousBackground: 'Data Science',
   className: 'Alex22',
-  favSubjects: ['Philosophy', 'Physics', 'Economics']
+  favSubjects: ['Philosophy', 'Physics', 'Economics'],
 })
 
 class ProjectManager extends Instructor {
